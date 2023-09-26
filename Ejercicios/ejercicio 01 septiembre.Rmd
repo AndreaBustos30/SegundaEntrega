@@ -1,0 +1,36 @@
+---
+title: "python in R word"
+author: "Andrea B"
+date: "2023-09-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+1.  **Instalar Required libraries**
+
+Ejemplo usando libreria seaborn, instalar paquetes usando la funcion py_install() del paquete reticulate in R
+
+```{r eval=FALSE}
+pip install seaborn
+```
+
+2.  **Instalar las librerias python in R markdown**
+
+```{python}
+import seaborn as sns
+fmri = sns.load_dataset("fmri")
+sns.lmplot("timepoint","signal",data=r.f1)
+```
+
+pip install seaborn
+pip install seaborn
+```{r}
+pip install seaborn
+```
