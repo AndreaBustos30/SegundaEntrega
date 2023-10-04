@@ -1,0 +1,246 @@
+---
+title: "PrimerArchivo"
+author: "Andrea B"
+date: "2023-09-26"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Implementación de un Juego de Cartas
+
+Durante este tutorial se va a desarrollar la implementación de un Juego de Cartas, el primer codigo que se mostrará a continuación, permite crear un archivo csv con todas las cartas de una baraja de póquer estándar.
+
+```{r}
+# Crear una baraja de póquer estándar
+suits <- c("Corazones", "Diamantes", "Tréboles", "Picas")
+values <- c("2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A")
+
+# Crear un data frame que contenga todas las cartas
+all_cards <- expand.grid(Suit = suits, Value = values)
+
+# Guardar el data frame en un archivo CSV
+write.csv(all_cards, "baraja_poker.csv", row.names = FALSE)
+```
+
+Continuando con la implementación de códigos en R, a continuación se mostrará el código correspondiente a crear una función que reciba el nombre del archivo csv y devuelva un marco de datos con la información de la baraja de póquer estándar.
+
+```{r}
+# Definir una función para cargar la baraja de póquer y asignar valores
+load_poker_deck <- function(file_name) {
+  # Cargar el archivo CSV
+  poker_deck <- read.csv(file_name, header = TRUE, stringsAsFactors = FALSE)
+
+  # Definir una función personalizada para asignar valores
+  assign_card_value <- function(card) {
+    card_value <- as.character(card$Value)
+    if (grepl("^[2-9]$", card_value)) {
+      return(as.numeric(card_value))
+    } else if (card_value %in% c("10", "J", "Q", "K")) {
+      return(10)
+    } else if (card_value == "A") {
+      return(11)  # Puedes ajustar el valor de A según las reglas del juego
+    }
+  }
+
+  # Agregar una columna "CardValue" con los valores asignados
+  poker_deck$CardValue <- sapply(poker_deck, assign_card_value)
+
+  return(poker_deck)
+}
+```
+
+Se continua dando paso a crear un código en R, que permita mezclar las cartas de la baraja.
+
+```{r}
+# Crear una baraja de 52 cartas
+baraja <- 1:52
+
+# Mezclar las cartas
+baraja_mezclada <- sample(baraja)
+
+# Mostrar la baraja mezclada
+cat("Baraja mezclada:", baraja_mezclada, "\n")
+
+```
+
+Vamos a crear una código en R, que reparta un número de cartas de la baraja, pero que una vez una de las cartas ha sido repartida no puede ser seleccionada de nuevo.
+
+```{r}
+# Crear una función para repartir cartas
+repartir_cartas <- function(numero_cartas) {
+  # Crear una baraja de 52 cartas
+  baraja <- 1:52
+
+  # Inicializar un vector para almacenar las cartas repartidas
+  cartas_repartidas <- c()
+
+  # Comprobar si hay suficientes cartas para repartir
+  if (numero_cartas > length(baraja)) {
+    cat("No hay suficientes cartas en la baraja.\n")
+    return(NULL)
+  }
+
+  # Repartir cartas
+  for (i in 1:numero_cartas) {
+    # Seleccionar una carta al azar
+    carta_seleccionada <- sample(baraja, 1)
+
+    # Agregar la carta seleccionada a las cartas repartidas
+    cartas_repartidas <- c(cartas_repartidas, carta_seleccionada)
+
+    # Eliminar la carta seleccionada de la baraja
+    baraja <- baraja[-which(baraja == carta_seleccionada)]
+  }
+
+  # Mostrar las cartas repartidas
+  cat("Cartas repartidas:", cartas_repartidas, "\n")
+}
+
+# Llamar a la función para repartir 5 cartas (puedes cambiar el número)
+repartir_cartas(5)
+```
+
+## Black Jack
+
+Vamos a crear un script de R que permita jugar al black jack (21), este código tendrá la opción de preguntar al usuario si quiere tomar otra carta e indicará si pierde, gana o decide parar.
+
+```{r}
+# Función para calcular el valor de una mano de blackjack
+calcular_puntuacion <- function(mano) {
+  puntuacion <- sum(mano)
+  if (puntuacion > 21 && 11 %in% mano) {
+    puntuacion <- puntuacion - 10
+  }
+  return(puntuacion)
+}
+
+# Función para jugar al blackjack
+jugar_blackjack <- function() {
+  # Baraja de cartas
+  cartas <- c(2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11)
+  
+  # Repartir dos cartas al jugador y al crupier
+  jugador <- sample(cartas, 2)
+  crupier <- sample(cartas, 2)
+  
+  cat("¡Bienvenido al Blackjack!\n\n")
+  
+  # Comenzar el juego
+  while (TRUE) {
+    cat("Tus cartas:", jugador, "Puntuación:", calcular_puntuacion(jugador), "\n")
+    cat("Carta del crupier:", crupier[1], "\n")
+    
+    # Verificar si el jugador ha ganado o perdido
+    if (calcular_puntuacion(jugador) > 21) {
+      cat("Has perdido. ¡Tienes más de 21 puntos!\n")
+      break
+    }
+    
+    # Preguntar al jugador si desea tomar otra carta o parar
+    respuesta <- readline("¿Quieres tomar otra carta? (s/n): ")
+    
+    if (respuesta == "s") {
+      # Tomar una carta adicional y agregarla a la mano del jugador
+      nueva_carta <- sample(cartas, 1)
+      jugador <- c(jugador, nueva_carta)
+    } else {
+      # El jugador decide parar, ahora el crupier juega
+      while (calcular_puntuacion(crupier) < 17) {
+        nueva_carta_crupier <- sample(cartas, 1)
+        crupier <- c(crupier, nueva_carta_crupier)
+      }
+      
+      cat("Cartas del crupier:", crupier, "Puntuación del crupier:", calcular_puntuacion(crupier), "\n")
+      
+      # Determinar el resultado
+      if (calcular_puntuacion(jugador) > 21) {
+        cat("¡Gana el crupier! Tu puntuación es mayor que 21.\n")
+      } else if (calcular_puntuacion(crupier) > 21 || calcular_puntuacion(jugador) > calcular_puntuacion(crupier)) {
+        cat("¡Felicidades! ¡Has ganado!\n")
+      } else if (calcular_puntuacion(jugador) == calcular_puntuacion(crupier)) {
+        cat("Es un empate.\n")
+      } else {
+        cat("¡Gana el crupier! Su puntuación es mayor que la tuya.\n")
+      }
+      break
+    }
+  }
+}
+
+# Iniciar el juego de blackjack
+jugar_blackjack()
+
+```
+
+## Integración Básica de Phyton y R.
+
+Avanzando con los scripts de R, comenzaremos a implementar phyton de manera simultanea, a continuación se utiliza el script correcto para instalar las librerías de Python como son pandas, numpy, scipy, matplotlib y seaborn.
+
+```{r}
+#Instalar paquetes en R
+library(reticulate)
+
+#Instalar libreria pandas
+py_install("pandas")
+```
+
+```{python}
+#Instalar libreria Pandas
+import pandas as pd
+
+#Instalar libreria matplotlib
+import matplotlib as mpl
+
+#Instalar libreria seaborn
+import seaborn as sns
+
+#Instalar libreria numpy
+import numpy as np
+
+#Instalar libreria scipy
+from scipy import stats
+
+```
+
+## Código phyton para encontrar números primos.
+
+Se implementará un script python que encuentre los números primos entre dos números enteros.
+
+```{python}
+def es_primo(numero):
+    if numero <= 1:
+        return False
+    if numero <= 3:
+        return True
+    if numero % 2 == 0 or numero % 3 == 0:
+        return False
+    i = 5
+    while i * i <= numero:
+        if numero % i == 0 or numero % (i + 2) == 0:
+            return False
+        i += 6
+    return True
+
+def encontrar_primos_entre_limites(inicio, fin):
+    primos = []
+    for num in range(max(2, inicio), fin + 1):
+        if es_primo(num):
+            primos.append(num)
+    return primos
+
+# Especifica los límites del rango
+inicio = 10
+fin = 50
+
+# Encuentra los números primos en el rango
+numeros_primos = encontrar_primos_entre_limites(inicio, fin)
+
+# Imprime los números primos encontrados
+print(f"Números primos entre {inicio} y {fin}: {numeros_primos}")
+
+```
