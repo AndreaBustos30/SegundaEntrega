@@ -1,0 +1,109 @@
+---
+title: "SegundoTutorial"
+author: "Andrea B"
+date: "2023-10-04"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Cómo simular una Baraja de Póker en R.
+
+Simular una baraja de póquer en R implica crear una colección de 52 cartas que representan los cuatro palos (corazones, diamantes, tréboles y picas) y las 13 denominaciones (desde el 2 hasta el as) presentes en una baraja de póker estándar. Luego, es posible realizar operaciones como barajar las cartas, repartirlas a jugadores o realizar análisis estadísticos. En R, esta simulación se logra fácilmente mediante la creación de un marco de datos que representa las cartas y asignándoles nombres que combinan la denominación y el palo. La flexibilidad de R permite la posterior manipulación y análisis de esta baraja simulada para una variedad de aplicaciones relacionadas con juegos de cartas, estadísticas o simulaciones.
+
+Para simular una barra de póquer en R, podemos utilizar una combinación de vectores y funciones para crear un conjunto completo de 52 cartas, que incluye palos (corazones, diamantes, tréboles y picas) y valores de carta (2 al 10, J, Q). , K y A). Luego, podemos combinar estos elementos para formar una lista de cartas y barajarlas de manera aleatoria para obtener una baraja de póker barajada. Esta simulación nos permite trabajar con una baraja virtual en R y puede servir como base para crear juegos o realizar análisis relacionados con el póker y otros juegos de cartas.
+
+## Código en R para crear un Marco de Datos.
+
+Continuando con la creación de códigos en R, se mostrará el código para crear o cargar un marco de datos frame con la información de una baraja.
+
+```{r}
+# Crear un vector con los valores de las cartas
+valores <- c("2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A")
+
+# Crear un vector con los palos de las cartas
+palos <- c("Corazones", "Diamantes", "Tréboles", "Picas")
+
+# Crear todas las combinaciones de cartas
+cartas <- expand.grid(Valor = valores, Palo = palos)
+
+# Mostrar el marco de datos con la información de la baraja
+print(cartas)
+
+```
+
+## Código Phyton para mezclar una Baraja de Póker.
+
+Posteriormente pasando de códigos en R vamos a comenzar aplicar códigos en phyton, a continuación se realizará una programación para mezclar una baraja de póker.
+
+```{python}
+import random
+
+# Crear una baraja de poker
+def crear_baraja():
+    palos = ['Corazones', 'Diamantes', 'Tréboles', 'Picas']
+    valores = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+    baraja = [{'valor': valor, 'palo': palo} for valor in valores for palo in palos]
+    return baraja
+
+# Función para barajar la baraja
+def barajar_baraja(baraja):
+    random.shuffle(baraja)
+
+# Función para mostrar la baraja
+def mostrar_baraja(baraja):
+    for carta in baraja:
+        print(f"{carta['valor']} de {carta['palo']}")
+
+# Crear y barajar la baraja
+baraja = crear_baraja()
+barajar_baraja(baraja)
+
+# Mostrar la baraja barajada
+mostrar_baraja(baraja)
+
+```
+
+## Mezcla de Códigos en R y Phyton para mezclar una Baraja de Póker y revelar cinco cartas.
+
+Dando paso a la implementación de dos códigos para un mismo resultado de visualización, se creará un código en R y un código en phyton para mezclar una baraja de póker y que esta revele cinco (5) cartas de la baraja.
+
+```{python}
+import random
+import json
+
+# Crear una baraja de poker
+def crear_baraja():
+    palos = ['Corazones', 'Diamantes', 'Tréboles', 'Picas']
+    valores = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+    baraja = [{'valor': valor, 'palo': palo} for valor in valores for palo in palos]
+    return baraja
+
+# Función para barajar la baraja
+def barajar_baraja(baraja):
+    random.shuffle(baraja)
+
+# Guardar la baraja barajada en un archivo JSON
+baraja = crear_baraja()
+barajar_baraja(baraja)
+with open('baraja.json', 'w') as file:
+    json.dump(baraja, file)
+```
+
+```{r}
+# Instala y carga la librería jsonlite si no está instalada
+if (!requireNamespace("jsonlite", quietly = TRUE)) {
+  install.packages("jsonlite")
+}
+library(jsonlite)
+
+# Cargar la baraja desde el archivo JSON
+baraja <- fromJSON("baraja.json")
+
+# Mostrar las 5 cartas superiores
+cartas_superiores <- baraja[1:5, ]
+print(cartas_superiores)
+
+```
