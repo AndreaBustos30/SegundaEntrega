@@ -1,0 +1,670 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Tutorial\_3},
+  pdfauthor={Andrea B},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Tutorial\_3}
+\author{Andrea B}
+\date{2023-10-05}
+
+\begin{document}
+\maketitle
+
+\hypertarget{uxe1lgebra-lineal-en-matrices-de-n-dimensiones.}{%
+\section{\texorpdfstring{\textbf{Álgebra lineal en matrices de n
+dimensiones.}}{Álgebra lineal en matrices de n dimensiones.}}\label{uxe1lgebra-lineal-en-matrices-de-n-dimensiones.}}
+
+En este tutorial, se utilizará una descomposición matricial del álgebra
+lineal, la descomposición de valores singulares, para generar una
+aproximación comprimida de una imagen.Se usará la imagen del módulo
+scipy.misc:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ scipy.datasets}
+\NormalTok{img}\OperatorTok{=}\NormalTok{ scipy.datasets.face()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\BuiltInTok{type}\NormalTok{(img)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## <class 'numpy.ndarray'>
+\end{verbatim}
+
+Podemos ver la imagen usando la función y el comando especial
+Python,~para mostrar gráficos en línea:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ matplotlib.pyplot }\ImportTok{as}\NormalTok{ plt}
+\NormalTok{plt.imshow(img)}
+\NormalTok{plt.show()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Tutorial_3_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plt.imshow(img)}
+\NormalTok{plt.show()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Tutorial_3_files/figure-latex/unnamed-chunk-4-3.pdf}
+
+\hypertarget{propiedades-de-forma-eje-y-matriz}{%
+\subsubsection{Propiedades de forma, eje y
+matriz}\label{propiedades-de-forma-eje-y-matriz}}
+
+Tenga en cuenta que, en álgebra lineal, la dimensión de un vector se
+refiere al número de entradas en una matriz. Primero, verificamos la
+forma de los datos en la matriz. Dado que esta imagen es bidimensional
+(los píxeles de la imagen forman un rectángulo), podríamos esperar que
+una matriz bidimensional la represente (una matriz). Sin embargo, usar
+la shape propiedad de esta matriz NumPy nos da un resultado diferente.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{img.shape}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (768, 1024, 3)
+\end{verbatim}
+
+La salida es una tupla con tres elementos, lo que significa que se trata
+de una matriz tridimensional. De hecho, como se trata de una imagen en
+color y hemos utilizado la imread función para leerla, los datos están
+organizados en tres matrices 2D, que representan canales de color (en
+este caso, rojo, verde y azul - RGB). Puedes ver esto mirando la forma
+de arriba: indica que tenemos una matriz de 3 matrices, cada una con una
+forma de 768x1024.
+
+Además, usando la ndim propiedad de esta matriz, podemos ver que:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{img.ndim}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 3
+\end{verbatim}
+
+NumPy se refiere a cada dimensión como un~\emph{eje}~.~Por cómo~imread
+funciona, el~\emph{primer índice en el tercer eje}~son los datos del
+píxel rojo de nuestra imagen.~Podemos acceder a esto usando la sintaxis
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{img[:, :, }\DecValTok{0}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## array([[121, 138, 153, ..., 119, 131, 139],
+##        [ 89, 110, 130, ..., 118, 134, 146],
+##        [ 73,  94, 115, ..., 117, 133, 144],
+##        ...,
+##        [ 87,  94, 107, ..., 120, 119, 119],
+##        [ 85,  95, 112, ..., 121, 120, 120],
+##        [ 85,  97, 111, ..., 120, 119, 118]], dtype=uint8)
+\end{verbatim}
+
+En el resultado anterior, podemos ver que cada valor es un valor entero
+entre 0 y 255, que representa el nivel de rojo en cada píxel de la
+imagen correspondiente.Como era de esperar, esta es una matriz de
+768x1024:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{img[:, :, }\DecValTok{0}\NormalTok{].shape}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (768, 1024)
+\end{verbatim}
+
+Dado que vamos a realizar operaciones de álgebra lineal con estos datos,
+podría ser más interesante tener números reales entre 0 y 1 en cada
+entrada de las matrices para representar los valores RGB.~Podemos
+hacerlo configurando.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{img\_array }\OperatorTok{=}\NormalTok{ img }\OperatorTok{/} \DecValTok{255}
+\end{Highlighting}
+\end{Shaded}
+
+Esta operación, que divide una matriz por un escalar, funciona gracias a
+las reglas de transmisión de NumPy .Puede comprobar que lo anterior
+funciona haciendo algunas pruebas; por ejemplo, consultando sobre los
+valores máximos y mínimos para esta matriz:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{img\_array.}\BuiltInTok{max}\NormalTok{(), img\_array.}\BuiltInTok{min}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (1.0, 0.0)
+\end{verbatim}
+
+o comprobando el tipo de datos en la matriz:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{img\_array.dtype}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## dtype('float64')
+\end{verbatim}
+
+Tenga en cuenta que podemos asignar cada canal de color a una matriz
+separada usando la sintaxis de corte:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{red\_array }\OperatorTok{=}\NormalTok{ img\_array[:, :, }\DecValTok{0}\NormalTok{]}
+\NormalTok{green\_array }\OperatorTok{=}\NormalTok{ img\_array[:, :, }\DecValTok{1}\NormalTok{]}
+\NormalTok{blue\_array }\OperatorTok{=}\NormalTok{ img\_array[:, :, }\DecValTok{2}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{operaciones-sobre-un-eje}{%
+\subsubsection{Operaciones sobre un
+eje}\label{operaciones-sobre-un-eje}}
+
+Es posible utilizar métodos del álgebra lineal para aproximar un
+conjunto de datos existente.~Aquí, usaremos la svd (descomposición de
+valores singulares) para intentar reconstruir una imagen que utiliza
+menos información de valores singulares que la original, conservando al
+mismo tiempo algunas de sus características.
+
+Para continuar, importe el submódulo de álgebra lineal desde NumPy:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ numpy }\ImportTok{import}\NormalTok{ linalg}
+\end{Highlighting}
+\end{Shaded}
+
+Para extraer información de una matriz determinada, podemos usar el SVD
+para obtener 3 matrices que se pueden multiplicar para obtener la matriz
+original.De la teoría del álgebra lineal, dada una matriz A se puede
+calcular el siguiente producto:
+
+Observe que podemos usar el~@ operador (el operador de multiplicación de
+matrices para matrices NumPy para esto:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{img\_gray }\OperatorTok{=}\NormalTok{ img\_array }\OperatorTok{@}\NormalTok{ [}\FloatTok{0.2126}\NormalTok{, }\FloatTok{0.7152}\NormalTok{, }\FloatTok{0.0722}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+Ahora img\_gray tiene forma.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{img\_gray.shape}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (768, 1024)
+\end{verbatim}
+
+Para ver si esto tiene sentido en nuestra imagen, debemos usar un mapa
+de colores matplotlib correspondiente al color que deseamos ver en
+nuestra imagen (de lo contrario,matplotlib usaremos por defecto un mapa
+de colores que no corresponde a los datos reales).
+
+En nuestro caso, nos estamos aproximando a la parte en escala de grises
+de la imagen, por lo que usaremos el mapa de colores gray:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plt.imshow(img\_gray, cmap}\OperatorTok{=}\StringTok{"gray"}\NormalTok{)}
+\NormalTok{plt.show()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Tutorial_3_files/figure-latex/unnamed-chunk-16-5.pdf}
+
+Ahora, aplicando la función linalg.svd a esta matriz, obtenemos la
+siguiente descomposición:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{U, s, Vt }\OperatorTok{=}\NormalTok{ linalg.svd(img\_gray)}
+\end{Highlighting}
+\end{Shaded}
+
+Comprobemos que esto es lo que esperábamos:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{U.shape, s.shape, Vt.shape}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ((768, 768), (768,), (1024, 1024))
+\end{verbatim}
+
+Da como resultado un valueError.~Esto sucede porque tener una matriz
+unidimensional para S, en este caso, es mucho más económico en la
+práctica que construir una matriz diagonal con los mismos datos.~Para
+reconstruir la matriz original, podemos reconstruir la matriz
+diagonal.Σcon los elementos de S en su diagonal y con las dimensiones
+adecuadas para multiplicar: en nuestro caso, Σ debe ser 768x1024 ya que
+u es 768x768 y vt es 1024x1024.~Para sumar los valores singulares a la
+diagonal de sigma, usaremos la~función:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\NormalTok{Sigma }\OperatorTok{=}\NormalTok{ np.zeros((U.shape[}\DecValTok{1}\NormalTok{], Vt.shape[}\DecValTok{0}\NormalTok{]))}
+\NormalTok{np.fill\_diagonal(Sigma, s)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{aproximaciuxf3n}{%
+\subsection{\texorpdfstring{\textbf{Aproximación}}{Aproximación}}\label{aproximaciuxf3n}}
+
+El módulo linalg incluye una norm función que calcula la norma de un
+vector o matriz representado en una matriz NumPy.~Por ejemplo, a partir
+de la explicación anterior de SVD, esperaríamos que la norma de la
+diferencia entre img\_gray el producto SVD reconstruido y el producto
+SVD fuera pequeña.~Como era de esperar, deberías ver algo como
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{linalg.norm(img\_gray }\OperatorTok{{-}}\NormalTok{ U }\OperatorTok{@}\NormalTok{ Sigma }\OperatorTok{@}\NormalTok{ Vt)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 1.5985090441460665e-12
+\end{verbatim}
+
+También podríamos haber usado la función numpy.allclose para asegurarnos
+de que el producto reconstruido esté, de hecho,~\emph{cerca}~de nuestra
+matriz original (la diferencia entre las dos matrices es pequeña):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{np.allclose(img\_gray, U }\OperatorTok{@}\NormalTok{ Sigma }\OperatorTok{@}\NormalTok{ Vt)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## True
+\end{verbatim}
+
+Para ver si una aproximación es razonable, podemos comprobar los valores
+en S:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plt.plot(s)}
+\NormalTok{plt.show()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Tutorial_3_files/figure-latex/unnamed-chunk-22-7.pdf}
+
+En el gráfico, podemos ver que aunque tenemos 768 valores singulares en
+S, la mayoría de ellos (después de la entrada número 150
+aproximadamente) son bastante pequeños. Por lo tanto, podría tener
+sentido utilizar sólo la información relacionada con los primeros
+(digamos, 50) \emph{valores singulares} para construir una aproximación
+más económica a nuestra imagen.
+
+La idea es considerar todos los k valores singulares excepto los
+primeros en sigma (que son los mismos que en s) como ceros, manteniendo
+u e vt intacto, y calcular el producto de estas matrices como
+aproximación.
+
+Por ejemplo, si elegimos
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{k }\OperatorTok{=} \DecValTok{10}
+\end{Highlighting}
+\end{Shaded}
+
+podemos construir la aproximación haciendo
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{approx }\OperatorTok{=}\NormalTok{ U }\OperatorTok{@}\NormalTok{ Sigma[:, :k] }\OperatorTok{@}\NormalTok{ Vt[:k, :]}
+\end{Highlighting}
+\end{Shaded}
+
+Tenga en cuenta que tuvimos que usar solo las primeras k filas de vt, ya
+que todas las demás filas se multiplicarían por los ceros
+correspondientes a los valores singulares que eliminamos de esta
+aproximación.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plt.imshow(approx, cmap}\OperatorTok{=}\StringTok{"gray"}\NormalTok{)}
+\NormalTok{plt.show()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Tutorial_3_files/figure-latex/unnamed-chunk-25-9.pdf}
+
+\hypertarget{aplicando-a-todos-los-colores}{%
+\subsubsection{Aplicando a todos los
+colores}\label{aplicando-a-todos-los-colores}}
+
+Ahora queremos hacer el mismo tipo de operación, pero con los tres
+colores. Nuestro primer instinto podría ser repetir la misma operación
+que hicimos anteriormente para cada matriz de color individualmente.
+\emph{Sin embargo, la transmisión} de NumPy se encarga de esto por
+nosotros.
+
+Si nuestra matriz tiene más de dos dimensiones, entonces el SVD se puede
+aplicar a todos los ejes a la vez. Sin embargo, las funciones de álgebra
+lineal en NumPy esperan ver una matriz de la forma , donde el primer eje
+representa el número de matrices en la pila. En nuestro caso,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{img\_array.shape}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (768, 1024, 3)
+\end{verbatim}
+
+indica que el eje se reordenará de manera que la forma final de la
+matriz transpuesta se reordenará de acuerdo con los índices .Veamos cómo
+funciona esto para nuestra matriz:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{img\_array\_transposed }\OperatorTok{=}\NormalTok{ np.transpose(img\_array, (}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\NormalTok{img\_array\_transposed.shape}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (3, 768, 1024)
+\end{verbatim}
+
+Ahora estamos listos para aplicar la SVD:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{U, s, Vt }\OperatorTok{=}\NormalTok{ linalg.svd(img\_array\_transposed)}
+\end{Highlighting}
+\end{Shaded}
+
+Finalmente, para obtener la imagen aproximada completa, necesitamos
+volver a ensamblar estas matrices en la aproximación.~Ahora, tenga en
+cuenta que
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{U.shape, s.shape, Vt.shape}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ((3, 768, 768), (3, 768), (3, 1024, 1024))
+\end{verbatim}
+
+\hypertarget{productos-con-matrices-n-dimensionales}{%
+\subsubsection{Productos con matrices
+n-dimensionales}\label{productos-con-matrices-n-dimensionales}}
+
+Si ha trabajado antes con matrices de una o dos dimensiones en NumPy,
+puede usar numpy (o el \texttt{@}operador) indistintamente. Sin embargo,
+para matrices de n dimensiones, funcionan de maneras muy diferentes.
+
+Ahora, para construir nuestra aproximación, primero debemos asegurarnos
+de que nuestros valores singulares estén listos para la multiplicación,
+por lo que construimos nuestra matriz de manera similar a lo que hicimos
+antes. La matriz debe tener dimensiones . Para sumar los valores
+singulares a la diagonal de , usaremos nuevamente la función , usando
+cada una de las 3 filas como diagonal para cada una de las 3 matrices en
+:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Sigma }\OperatorTok{=}\NormalTok{ np.zeros((}\DecValTok{3}\NormalTok{, }\DecValTok{768}\NormalTok{, }\DecValTok{1024}\NormalTok{))}
+\ControlFlowTok{for}\NormalTok{ j }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{3}\NormalTok{):}
+\NormalTok{    np.fill\_diagonal(Sigma[j, :, :], s[j, :])}
+\end{Highlighting}
+\end{Shaded}
+
+Ahora, si deseamos reconstruir el SVD completo (sin aproximación),
+podemos hacer
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reconstructed }\OperatorTok{=}\NormalTok{ U }\OperatorTok{@}\NormalTok{ Sigma }\OperatorTok{@}\NormalTok{ Vt}
+\end{Highlighting}
+\end{Shaded}
+
+Tenga en cuenta que
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reconstructed.shape}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (3, 768, 1024)
+\end{verbatim}
+
+La imagen reconstruida debe ser indistinguible de la original, excepto
+por diferencias debidas a errores de punto flotante de la
+reconstrucción.~Recuerde que nuestra imagen original constaba de valores
+de punto flotante en el rango~.~La acumulación de error de punto
+flotante de la reconstrucción puede dar como resultado valores
+ligeramente fuera de este rango original:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reconstructed.}\BuiltInTok{min}\NormalTok{(), reconstructed.}\BuiltInTok{max}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (-6.013798400233972e-15, 1.0000000000000062)
+\end{verbatim}
+
+Dado que se esperan valores en el rango, podemos utilizar clip para
+eliminar el error de punto flotante:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reconstructed }\OperatorTok{=}\NormalTok{ np.clip(reconstructed, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{plt.imshow(np.transpose(reconstructed, (}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{)))}
+\NormalTok{plt.show()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Tutorial_3_files/figure-latex/unnamed-chunk-34-11.pdf}
+
+De hecho, realiza este recorte bajo el capó, por lo que si omite la
+primera línea en la celda del código anterior, ahora, para hacer la
+aproximación, debemos elegir solo los primeros k valores singulares para
+cada canal de color. Esto se puede hacer usando la siguiente sintaxis
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{approx\_img }\OperatorTok{=}\NormalTok{ U }\OperatorTok{@}\NormalTok{ Sigma[..., :k] }\OperatorTok{@}\NormalTok{ Vt[..., :k, :]}
+\end{Highlighting}
+\end{Shaded}
+
+Puedes ver que hemos seleccionado solo los primeros k componentes del
+último eje (esto significa que hemos usado solo las primeras k columnas
+de cada una de las tres matrices en la pila), y que hemos seleccionado
+solo los primeros k componentes en el segundo. -al último eje de vt
+(esto significa que hemos seleccionado solo las primeras k filas de cada
+matriz en la pila vt y todas las columnas). Si no está familiarizado con
+la sintaxis de puntos suspensivos, es un marcador de posición para otros
+ejes. Ahora,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{approx\_img.shape}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (3, 768, 1024)
+\end{verbatim}
+
+Que no es la forma adecuada para mostrar la imagen.~Finalmente,
+reordenando los ejes a nuestra forma original de~, podemos ver nuestra
+aproximación:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plt.imshow(np.transpose(approx\_img, (}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{)))}
+\NormalTok{plt.show()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Tutorial_3_files/figure-latex/unnamed-chunk-37-13.pdf}
+
+Aunque la imagen no es tan nítida, utilizando una pequeña cantidad de~k
+valores singulares (en comparación con el conjunto original de 768
+valores), podemos recuperar muchas de las características distintivas de
+esta imagen.
+
+\hypertarget{palabras-finales}{%
+\subsubsection{Palabras finales}\label{palabras-finales}}
+
+Por supuesto, este no es el mejor método para~\emph{aproximar}~una
+imagen.~Sin embargo, de hecho, hay un resultado en álgebra lineal que
+dice que la aproximación que construimos anteriormente es la mejor que
+podemos obtener de la matriz original en términos de la norma de la
+diferencia.
+
+\end{document}
