@@ -1,0 +1,178 @@
+---
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+title: "EDA_Phyton" author: "Andrea B" date: "2023-11-16" output: pdf_document: pdf_print: paged ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# **Pokémon con Estadísticas**
+
+Este conjunto de datos incluye 721 Pokémon, incluido su número, nombre, primer y segundo tipo, y estadísticas básicas: HP, Ataque, Defensa, Ataque Especial, Defensa Especial y Velocidad. Ha sido de gran utilidad para enseñar estadística a los niños.
+
+Para la visualización del conjunto de datos vamos a cargar la siguiente libreria:
+
+```{r}
+library(readr)
+```
+
+Importar la base de datos del archivo Pokemon
+
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+```
+
+```{python}
+Pokemon=pd.read_csv(r"C:\Users\Andrea\Desktop\Pokemon.csv")
+
+print(Pokemon)
+```
+
+# ¿Cuál es la Distribución de la Generación?
+
+A continuación se realizará el conteo del número de pokemon que se encuentran en cada generación.
+
+```{python}
+Pokemon.value_counts('Type 1')
+```
+
+```{python}
+Pokemon.describe()
+```
+
+```{python}
+Pokemon["Total"].plot(kind='hist',figsize=(10,8))
+```
+
+## ¿En que generación es mas probable encontrar un pokemon no lengendario con un ataque alto?.
+
+Dentro del analisis realizado se relaciona el codigo a continuacion del conteo de los pokemon legendarios arrojando los siguientes datos:
+
+```{python}
+Pokemon["Attack"].isin(["True", "False"])
+```
+
+```{python}
+Pokemon.info() 
+```
+
+```{python}
+Pokemon["Attack"].sum() 
+Pokemon.loc[Pokemon["Generation"]].shape
+```
+
+## Pokemon Legendario y No Legendario
+
+Dentro del analisis de datos de Pokemon vamos a realizar la comparación del tipo más común de pokemon legendario.
+
+**Pokemon Legendario**
+
+```{python}
+Pokemon.loc[Pokemon["Legendary"],"Type 1"].value_counts()
+```
+
+```{python}
+Pokemon.loc[Pokemon["Legendary"],"Type 1"].value_counts().plot(kind="bar")
+```
+
+**Pokemon No Legendario**
+
+```{python}
+ordinary = Pokemon[Pokemon["Legendary"] == False].reset_index(drop=True)
+print(ordinary.shape)
+ordinary.head()
+```
+
+```{python}
+ordinary = Pokemon[Pokemon["Legendary"] == False].value_counts()
+```
+
+```{python}
+ordinary = Pokemon[Pokemon["Legendary"] == False].value_counts().plot(kind="bar")
+```
+
+## Analisis Final de Pokemon
+
+Durante el desarrollo de este proyecto se pudo visualizar como estan cada uno catalogados cada uno de los pokemons a continuación se muestra un grafico de acuerdo a su categoria.
+
+```{python}
+Pokemon["Type 1"].value_counts().plot(kind="pie",autopct="%1.1f%%",cmap='tab20c',figsize=(10,8))
+```
+
+Su distribución total.
+
+```{python}
+Pokemon.head()
+```
+
+```{python}
+Pokemon["Total"].plot(kind='box',vert=False,figsize=(10,5))
+```
+
+Distribución de pokemon legendarios.
+
+```{python}
+Pokemon["Legendary"].value_counts().plot(kind="pie",autopct="%1.1f%%",cmap="Set3",figsize=(10,8))
+```
+
+Podemos visualizar cual es el pokemon mas poderoso de las 3 primeras generaciones, del tipo agua.
+
+```{python}
+Pokemon["Generation"].value_counts(sort=False).plot(kind="bar")
+```
+
+```{python}
+(
+    (Pokemon["Generation"]==1)|
+    (Pokemon["Generation"]==2) |
+    (Pokemon["Generation"]==3)
+).sum()
+```
+
+```{python}
+Pokemon.loc[
+    (Pokemon["Type 1"]=="Water")&
+    Pokemon["Generation"].isin([1,2,3])
+].sort_values(by="Total",ascending=False).head()
+```
+
+El Pokémon legendario ultrapoderoso se muestra a continuación.
+
+```{python}
+import matplotlib.pyplot as plt
+fig, ax = plt.subplots(figsize=(14, 7))
+sns.scatterplot(data=Pokemon, x="Defense", y="Attack", hue='Legendary', ax=ax)
+ax.annotate(
+    "Who's this guy?", xy=(140, 150), xytext=(160, 150), color='red',
+    arrowprops=dict(arrowstyle="->", color='red')
+)
+```
+
+```{python}
+sns.set_palette("husl", 8)
+ax = sns.distplot(Pokemon['Attack'])
+ax.set_title("Pokemon Attack Distribution", fontdict={'fontsize': 16})
+```
+
+```{python}
+sns.set_palette("husl", 8)
+ax = sns.distplot(Pokemon['Defense'])
+ax.set_title("Pokemon Defense Distribution", fontdict={'fontsize': 16})
+```
+
+```{python}
+mean_attack_generation = Pokemon.groupby("Generation")["Attack"].mean().sort_values()
+print(mean_attack_generation)
+```
+
+```{python}
+mean_defense_generation = Pokemon.groupby("Generation")["Defense"].mean().sort_values()
+print(mean_defense_generation)
+```
